@@ -1,4 +1,3 @@
 // Typing Components
-export { TypingArea } from './TypingArea'
-export { Keyboard } from './Keyboard'
-export { StatsDisplay } from './StatsDisplay'
+export { TextDisplay } from './TextDisplay'
+export { StatsHUD } from './StatsHUD'
