@@ -4,12 +4,13 @@ import { cn } from '@/lib/utils'
 import { motion, HTMLMotionProps } from 'framer-motion'
 import { forwardRef, useState } from 'react'
 
-interface ButtonProps extends Omit<HTMLMotionProps<'button'>, 'ref'> {
+interface ButtonProps extends Omit<HTMLMotionProps<'button'>, 'ref' | 'children'> {
     variant?: 'primary' | 'secondary' | 'ghost' | 'gradient' | 'outline' | 'glow'
     size?: 'sm' | 'md' | 'lg'
     isLoading?: boolean
     leftIcon?: React.ReactNode
     rightIcon?: React.ReactNode
+    children?: React.ReactNode
 }
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
@@ -117,9 +118,10 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 Button.displayName = 'Button'
 
 // Icon button variant
-interface IconButtonProps extends Omit<HTMLMotionProps<'button'>, 'ref'> {
+interface IconButtonProps extends Omit<HTMLMotionProps<'button'>, 'ref' | 'children'> {
     variant?: 'default' | 'ghost' | 'glow'
     size?: 'sm' | 'md' | 'lg'
+    children?: React.ReactNode
 }
 
 export const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
@@ -161,8 +163,9 @@ export const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
 IconButton.displayName = 'IconButton'
 
 // Animated link button
-interface LinkButtonProps extends Omit<HTMLMotionProps<'a'>, 'ref'> {
+interface LinkButtonProps extends Omit<HTMLMotionProps<'a'>, 'ref' | 'children'> {
     external?: boolean
+    children?: React.ReactNode
 }
 
 export const LinkButton = forwardRef<HTMLAnchorElement, LinkButtonProps>(
