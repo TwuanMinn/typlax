@@ -1,13 +1,14 @@
 'use client'
 
 import { cn } from '@/lib/utils'
-import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion'
-import { HTMLAttributes, forwardRef, useRef } from 'react'
+import { motion, useMotionValue, useSpring, useTransform, HTMLMotionProps } from 'framer-motion'
+import { forwardRef, useRef } from 'react'
 
-interface CardProps extends HTMLAttributes<HTMLDivElement> {
+interface CardProps extends Omit<HTMLMotionProps<'div'>, 'ref' | 'children'> {
     variant?: 'default' | 'glass' | 'gradient' | 'glow'
     hoverEffect?: 'lift' | 'tilt' | 'glow' | 'none'
     glowColor?: string
+    children?: React.ReactNode
 }
 
 export const Card = forwardRef<HTMLDivElement, CardProps>(
@@ -113,9 +114,10 @@ export const Card = forwardRef<HTMLDivElement, CardProps>(
 Card.displayName = 'Card'
 
 // Glass Card variant with gradient border
-interface GlassCardProps extends HTMLAttributes<HTMLDivElement> {
+interface GlassCardProps extends Omit<HTMLMotionProps<'div'>, 'ref' | 'children'> {
     gradientFrom?: string
     gradientTo?: string
+    children?: React.ReactNode
 }
 
 export const GlassCard = forwardRef<HTMLDivElement, GlassCardProps>(
@@ -152,8 +154,9 @@ export const GlassCard = forwardRef<HTMLDivElement, GlassCardProps>(
 GlassCard.displayName = 'GlassCard'
 
 // Hover reveal card
-interface HoverRevealCardProps extends HTMLAttributes<HTMLDivElement> {
+interface HoverRevealCardProps extends Omit<HTMLMotionProps<'div'>, 'ref' | 'children'> {
     revealContent?: React.ReactNode
+    children?: React.ReactNode
 }
 
 export const HoverRevealCard = forwardRef<HTMLDivElement, HoverRevealCardProps>(
