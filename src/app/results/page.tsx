@@ -7,7 +7,7 @@ import { getModeById } from '@/data/modes'
 import { ModeId } from '@/types'
 import { formatTime } from '@/lib/utils'
 import { Confetti } from '@/components/ui/Confetti'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, Suspense } from 'react'
 
 // Animated counter component
 function AnimatedCounter({ value, suffix = '', delay = 0 }: { value: number; suffix?: string; delay?: number }) {
@@ -55,7 +55,19 @@ const itemVariants = {
     },
 }
 
-export default function ResultsPage() {
+function ResultsPageLoading() {
+    return (
+        <main className="min-h-screen flex items-center justify-center bg-primary-bg">
+            <motion.div
+                className="w-8 h-8 border-2 border-primary-glow/30 border-t-primary-glow rounded-full"
+                animate={{ rotate: 360 }}
+                transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
+            />
+        </main>
+    )
+}
+
+function ResultsPageContent() {
     const searchParams = useSearchParams()
 
     const modeId = searchParams.get('mode') as ModeId
@@ -321,6 +333,14 @@ export default function ResultsPage() {
                 </Link>
             </motion.div>
         </main>
+    )
+}
+
+export default function ResultsPage() {
+    return (
+        <Suspense fallback={<ResultsPageLoading />}>
+            <ResultsPageContent />
+        </Suspense>
     )
 }
 

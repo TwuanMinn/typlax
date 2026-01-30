@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useRef, useState, useCallback } from 'react'
+import { useEffect, useRef, useState, useCallback, Suspense } from 'react'
 import { useSearchParams, useRouter } from 'next/navigation'
 import { motion } from 'framer-motion'
 import Link from 'next/link'
@@ -23,7 +23,19 @@ import { EggToBirdMode } from '@/modes/egg-to-bird'
 import { BrokenGlassMode } from '@/modes/broken-glass'
 import { CarRacingMode } from '@/modes/car-racing'
 
-export default function PlayPage() {
+function PlayPageLoading() {
+    return (
+        <main className="min-h-screen flex items-center justify-center bg-primary-bg">
+            <motion.div
+                className="w-8 h-8 border-2 border-primary-glow/30 border-t-primary-glow rounded-full"
+                animate={{ rotate: 360 }}
+                transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
+            />
+        </main>
+    )
+}
+
+function PlayPageContent() {
     const searchParams = useSearchParams()
     const router = useRouter()
     const modeId = searchParams.get('mode') as ModeId
@@ -293,5 +305,13 @@ export default function PlayPage() {
                 accuracy={accuracy}
             />
         </main>
+    )
+}
+
+export default function PlayPage() {
+    return (
+        <Suspense fallback={<PlayPageLoading />}>
+            <PlayPageContent />
+        </Suspense>
     )
 }
